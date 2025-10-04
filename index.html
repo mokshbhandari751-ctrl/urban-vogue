@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Vogue - Premium Clothing Brand</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fafafa;
+            color: #222;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1a1a1a;
+            letter-spacing: 2px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #e67e22;
+        }
+        
+        .cart-icon {
+            position: relative;
+            background: #e67e22;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .cart-icon:hover {
+            background: #cf711f;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Carousel */
+        .carousel-section {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+        
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .carousel-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            background: rgba(0,0,0,0.5);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+        
+        .carousel-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .carousel-content p {
+            font-size: 1.2rem;
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 1rem;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        
+        .carousel-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
+        
+        .carousel-btn.prev {
+            left: 20px;
+        }
+        
+        .carousel-btn.next {
+            right: 20px;
+        }
+        
+        .carousel-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .dot.active {
+            background: #e67e22;
+        }
+        
+        /* Products Section */
+        .products {
+            padding: 4rem 0;
+            background: #fff;
+        }
+        
+        .products h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .product-card {
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .product-details {
+            margin-bottom: 1rem;
+        }
+        
+        .product-card .price {
+            color: #e67e22;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .product-card .original-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+        
+        .size-options {
+            margin-bottom: 1rem;
+        }
+        
+        .size-options label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .size-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .size-btn {
+            padding: 0.3rem 0.8rem;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .size-btn:hover, .size-btn.selected {
+            background: #e67e22;
+            color: white;
+            border-color: #e67e22;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.7rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .btn-primary {
+            background: #e67e22;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #cf711f;
+        }
+        
+        .btn-secondary {
+            background: #333;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #555;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: black;
+        }
+        
+        /* Cart Modal */
+        .cart-modal {
+            max-width: 600px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid #e67e22;
+        }
+        
+        /* About & Contact */
+        .about, .contact {
+            padding: 4rem 0;
+            background: #f4f4f4;
+        }
+        
+        .about h2, .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #1a1a1a;
+        }
+        
+        .about p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            text-align: center;
+            line-height: 1.8;
+        }
+        
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .carousel-content h1 {
+                font-size: 2rem;
+            }
+            
+            .carousel-btn {
+                font-size: 1.5rem;
+                padding: 0.5rem;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Urban Vogue</div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#shop">Shop</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><div class="cart-icon" onclick="openCart()">Cart <span class="cart-count" id="cartCount">0</span></div></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Carousel -->
+    <section id="home" class="carousel-section">
+        <div class="carousel-container">
+            <div class="carousel-slide active">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=600&fit=crop" alt="Fashion Collection">
+                <div class="carousel-content">
+                    <h1>Premium Shirt Collection</h1>
+                    <p>Discover our latest designs and styles</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1200&h=600&fit=crop" alt="Men's Shirts">
+                <div class="carousel-content">
+                    <h1>Classic & Modern Styles</h1>
+                    <p>Perfect fit for every occasion</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=1200&h=600&fit=crop" alt="Casual Wear">
+                <div class="carousel-content">
+                    <h1>Casual & Formal Wear</h1>
+                    <p>Quality materials and craftsmanship</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-btn prev">‹</button>
+        <button class="carousel-btn next">›</button>
+        <div class="carousel-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section id="shop" class="products">
+        <div class="container">
+            <h2>Featured Shirt Collection</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1717127354833-e4d10625d3e7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cG9sbyUyMHNoaXJ0fGVufDB8fDB8fHww" alt="Classic White Shirt">
+                    <h3>Classic White Shirt</h3>
+                    <div class="product-details">
+                        <p class="price">₹899 <span class="original-price">₹1299</span></p>
+                        <div class="size-options">
+                            <label>Size:</label>
+                            <div class="size-buttons">
+                                <button class="size-btn" onclick="selectSize(this)">S</button>
+                                <button class="size-btn" onclick="selectSize(this)">M</button>
+                                <button class="size-btn" onclick="selectSize(this)">L</button>
+                                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart('Classic White Shirt', 899, this)">Add to Cart</button>
+                        <button class="btn btn-secondary" onclick="buyNow('Classic White Shirt', 899)">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1602810316498-ab67cf68c8e1?w=400&h=300&fit=crop" alt="Denim Shirt">
+                    <h3>Premium Denim Shirt</h3>
+                    <div class="product-details">
+                        <p class="price">₹1199 <span class="original-price">₹1599</span></p>
+                        <div class="size-options">
+                            <label>Size:</label>
+                            <div class="size-buttons">
+                                <button class="size-btn" onclick="selectSize(this)">S</button>
+                                <button class="size-btn" onclick="selectSize(this)">M</button>
+                                <button class="size-btn" onclick="selectSize(this)">L</button>
+                                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart('Premium Denim Shirt', 1199, this)">Add to Cart</button>
+                        <button class="btn btn-secondary" onclick="buyNow('Premium Denim Shirt', 1199)">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1622622016645-7b7065e7c129?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHBvbG8lMjBzaGlydHxlbnwwfHwwfHx8MA%3D%3D" alt="Polo T-Shirt">
+                    <h3>Cotton Polo T-Shirt</h3>
+                    <div class="product-details">
+                        <p class="price">₹599 <span class="original-price">₹899</span></p>
+                        <div class="size-options">
+                            <label>Size:</label>
+                            <div class="size-buttons">
+                                <button class="size-btn" onclick="selectSize(this)">S</button>
+                                <button class="size-btn" onclick="selectSize(this)">M</button>
+                                <button class="size-btn" onclick="selectSize(this)">L</button>
+                                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart('Cotton Polo T-Shirt', 599, this)">Add to Cart</button>
+                        <button class="btn btn-secondary" onclick="buyNow('Cotton Polo T-Shirt', 599)">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dCUyMHNoaXJ0fGVufDB8fDB8fHww" alt="Graphic T-Shirt">
+                    <h3>Graphic Design T-Shirt</h3>
+                    <div class="product-details">
+                        <p class="price">₹499 <span class="original-price">₹799</span></p>
+                        <div class="size-options">
+                            <label>Size:</label>
+                            <div class="size-buttons">
+                                <button class="size-btn" onclick="selectSize(this)">S</button>
+                                <button class="size-btn" onclick="selectSize(this)">M</button>
+                                <button class="size-btn" onclick="selectSize(this)">L</button>
+                                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart('Graphic Design T-Shirt', 499, this)">Add to Cart</button>
+                        <button class="btn btn-secondary" onclick="buyNow('Graphic Design T-Shirt', 499)">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1656453260540-268a06c29c73?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9ybWFsJTIwYnVzaW5lc3MlMjBzaGlydHxlbnwwfHwwfHx8MA%3D%3D" alt="Formal Shirt">
+                    <h3>Formal Business Shirt</h3>
+                    <div class="product-details">
+                        <p class="price">₹1299 <span class="original-price">₹1899</span></p>
+                        <div class="size-options">
+                            <label>Size:</label>
+                            <div class="size-buttons">
+                                <button class="size-btn" onclick="selectSize(this)">S</button>
+                                <button class="size-btn" onclick="selectSize(this)">M</button>
+                                <button class="size-btn" onclick="selectSize(this)">L</button>
+                                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                                <button class="size-btn" onclick="selectSize(this)">XXL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart('Formal Business Shirt', 1299, this)">Add to Cart</button>
+                        <button class="btn btn-secondary" onclick="buyNow('Formal Business Shirt', 1299)">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1744535814651-b106bb53026d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGNhc3VhbCUyMGNvdHRvbiUyMHNoaXJ0fGVufDB8fDB8fHww" alt="Casual Cotton Shirt">
+                    <h3>Casual Cotton Shirt</h3>
+                    <div class="product-details">
+                        <p class="price">₹799 <span class="original-price">₹1199</span></p>
+                        <div class="size-options">
+                            <label>Size:</label>
+                            <div class="size-buttons">
+                                <button class="size-btn" onclick="selectSize(this)">S</button>
+                                <button class="size-btn" onclick="selectSize(this)">M</button>
+                                <button class="size-btn" onclick="selectSize(this)">L</button>
+                                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart('Casual Cotton Shirt', 799, this)">Add to Cart</button>
+                        <button class="btn btn-secondary" onclick="buyNow('Casual Cotton Shirt', 799)">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1734787671009-a4e82a8d9398?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzF8fGNsYXNzaWMlMjBzdHJpcHBlZCUyMHNoaXJ0fGVufDB8fDB8fHww" alt="Striped Shirt">
+                    <h3>Classic Striped Shirt</h3>
+                    <div class="product-details">
+                        <p class="price">₹999 <span class="original-price">₹1399</span></p>
+                        <div class="size-options">
+                            <label>Size:</label>
+                            <div class="size-buttons">
+                                <button class="size-btn" onclick="selectSize(this)">S</button>
+                                <button class="size-btn" onclick="selectSize(this)">M</button>
+                                <button class="size-btn" onclick="selectSize(this)">L</button>
+                                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart('Classic Striped Shirt', 999, this)">Add to Cart</button>
+                        <button class="btn btn-secondary" onclick="buyNow('Classic Striped Shirt', 999)">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1726140872004-850c80900ae3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fHBlbWl1bSUyMGJsYWNrJTIwdCUyMHNoaXJ0fGVufDB8fDB8fHww" alt="Plain Black T-Shirt">
+                    <h3>Premium Black T-Shirt</h3>
+                    <div class="product-details">
+                        <p class="price">₹399 <span class="original-price">₹699</span></p>
+                        <div class="size-options">
+                            <label>Size:</label>
+                            <div class="size-buttons">
+                                <button class="size-btn" onclick="selectSize(this)">S</button>
+                                <button class="size-btn" onclick="selectSize(this)">M</button>
+                                <button class="size-btn" onclick="selectSize(this)">L</button>
+                                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart('Premium Black T-Shirt', 399, this)">Add to Cart</button>
+                        <button class="btn btn-secondary" onclick="buyNow('Premium Black T-Shirt', 399)">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1564859228273-274232fdb516?w=400&h=300&fit=crop" alt="Henley Shirt">
+                    <h3>Long Sleeve Henley</h3>
+                    <div class="product-details">
+                        <p class="price">₹699 <span class="original-price">₹999</span></p>
+                        <div class="size-options">
+                            <label>Size:</label>
+                            <div class="size-buttons">
+                                <button class="size-btn" onclick="selectSize(this)">S</button>
+                                <button class="size-btn" onclick="selectSize(this)">M</button>
+                                <button class="size-btn" onclick="selectSize(this)">L</button>
+                                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart('Long Sleeve Henley', 699, this)">Add to Cart</button>
+                        <button class="btn btn-secondary" onclick="buyNow('Long Sleeve Henley', 699)">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1740711152088-88a009e877bb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bGluZW4lMjBzaGlydHxlbnwwfHwwfHx8MA%3D%3D" alt="Linen Shirt">
+                    <h3>Premium Linen Shirt</h3>
+                    <div class="product-details">
+                        <p class="price">₹1199 <span class="original-price">₹1699</span></p>
+                        <div class="size-options">
+                            <label>Size:</label>
+                            <div class="size-buttons">
+                                <button class="size-btn" onclick="selectSize(this)">S</button>
+                                <button class="size-btn" onclick="selectSize(this)">M</button>
+                                <button class="size-btn" onclick="selectSize(this)">L</button>
+                                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart('Premium Linen Shirt', 1199, this)">Add to Cart</button>
+                        <button class="btn btn-secondary" onclick="buyNow('Premium Linen Shirt', 1199)">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1611312449412-6cefac5dc3e4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fENoZWNrZXJlZCUyMEZsYW5uZWwlMjBTaGlydHxlbnwwfHwwfHx8MA%3D%3D" alt="Flannel Shirt">
+                    <h3>Checkered Flannel Shirt</h3>
+                    <div class="product-details">
+                        <p class="price">₹899 <span class="original-price">₹1299</span></p>
+                        <div class="size-options">
+                            <label>Size:</label>
+                            <div class="size-buttons">
+                                <button class="size-btn" onclick="selectSize(this)">S</button>
+                                <button class="size-btn" onclick="selectSize(this)">M</button>
+                                <button class="size-btn" onclick="selectSize(this)">L</button>
+                                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart('Checkered Flannel Shirt', 899, this)">Add to Cart</button>
+                        <button class="btn btn-secondary" onclick="buyNow('Checkered Flannel Shirt', 899)">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1613852348851-df1739db8201?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8dCUyMHNoaXJ0c3xlbnwwfHwwfHx8MA%3D%3D" alt="V-Neck T-Shirt">
+                    <h3>Premium V-Neck T-Shirt</h3>
+                    <div class="product-details">
+                        <p class="price">₹549 <span class="original-price">₹799</span></p>
+                        <div class="size-options">
+                            <label>Size:</label>
+                            <div class="size-buttons">
+                                <button class="size-btn" onclick="selectSize(this)">S</button>
+                                <button class="size-btn" onclick="selectSize(this)">M</button>
+                                <button class="size-btn" onclick="selectSize(this)">L</button>
+                                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart('Premium V-Neck T-Shirt', 549, this)">Add to Cart</button>
+                        <button class="btn btn-secondary" onclick="buyNow('Premium V-Neck T-Shirt', 549)">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Urban Vogue</h2>
+            <p>Urban Vogue is a premium clothing brand dedicated to providing high-quality, stylish, and comfortable apparel for the modern individual. Our collection features carefully curated shirts, t-shirts, and casual wear that blend contemporary design with timeless elegance. We believe in quality craftsmanship, sustainable practices, and creating clothing that empowers you to express your unique style with confidence.</p>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Urban Vogue. All rights reserved. | Premium Clothing Brand</p>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content cart-modal">
+            <span class="close" onclick="closeCart()">&times;</span>
+            <h2>Shopping Cart</h2>
+            <div id="cartItems"></div>
+            <div class="cart-total" id="cartTotal">Total: ₹0</div>
+            <button class="btn btn-primary" onclick="checkout()" style="width: 100%; margin-top: 1rem;">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Buy Now Modal -->
+    <div id="buyNowModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBuyNow()">&times;</span>
+            <h2>Order Confirmation</h2>
+            <div id="orderDetails"></div>
+            <button class="btn btn-primary" onclick="confirmOrder()" style="width: 100%; margin-top: 1rem;">Confirm Order</button>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // Cart functionality
+        let cart = [];
+        let cartCount = 0;
+
+        // Carousel JavaScript
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            if (n >= totalSlides) { currentSlide = 0; }
+            if (n < 0) { currentSlide = totalSlides - 1; }
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        function currentSlideIndex(n) {
+            currentSlide = n;
+            showSlide(currentSlide);
+        }
+
+        // Event listeners for carousel
+        document.querySelector('.next').addEventListener('click', nextSlide);
+        document.querySelector('.prev').addEventListener('click', prevSlide);
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => currentSlideIndex(index));
+        });
+
+        // Auto slide
+        let autoSlide = setInterval(nextSlide, 4000);
+
+        const carouselSection = document.querySelector('.carousel-section');
+        carouselSection.addEventListener('mouseenter', () => {
+            clearInterval(autoSlide);
+        });
+
+        carouselSection.addEventListener('mouseleave', () => {
+            autoSlide = setInterval(nextSlide, 4000);
+        });
+
+        // Size selection
+        function selectSize(btn) {
+            const sizeButtons = btn.parentElement.querySelectorAll('.size-btn');
+            sizeButtons.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        // Add to cart function
+        function addToCart(name, price, btn) {
+            const productCard = btn.closest('.product-card');
+            const selectedSize = productCard.querySelector('.size-btn.selected');
+            
+            if (!selectedSize) {
+                showNotification('Please select a size first!', 'error');
+                return;
+            }
+
+            const item = {
+                name: name,
+                price: price,
+                size: selectedSize.textContent,
+                id: Date.now()
+            };
+
+            cart.push(item);
+            cartCount++;
+            updateCartCount();
+            showNotification(`${name} added to cart!`, 'success');
+        }
+
+        // Buy now function
+        function buyNow(name, price) {
+            const productCards = document.querySelectorAll('.product-card');
+            let selectedSize = null;
+            
+            productCards.forEach(card => {
+                if (card.querySelector('h3').textContent === name) {
+                    const sizeBtn = card.querySelector('.size-btn.selected');
+                    if (sizeBtn) {
+                        selectedSize = sizeBtn.textContent;
+                    }
+                }
+            });
+
+            if (!selectedSize) {
+                showNotification('Please select a size first!', 'error');
+                return;
+            }
+
+            const orderDetails = document.getElementById('orderDetails');
+            orderDetails.innerHTML = `
+                <div style="text-align: left; margin: 1rem 0;">
+                    <p><strong>Product:</strong> ${name}</p>
+                    <p><strong>Size:</strong> ${selectedSize}</p>
+                    <p><strong>Price:</strong> ₹${price}</p>
+                    <hr style="margin: 1rem 0;">
+                    <p style="font-size: 1.2rem;"><strong>Total: ₹${price}</strong></p>
+                </div>
+            `;
+            
+            document.getElementById('buyNowModal').style.display = 'block';
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cartCount;
+        }
+
+        // Open cart modal
+        function openCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty</p>';
+                cartTotal.textContent = 'Total: ₹0';
+            } else {
+                let total = 0;
+                cartItems.innerHTML = '';
+                
+                cart.forEach(item => {
+                    total += item.price;
+                    cartItems.innerHTML += `
+                        <div class="cart-item">
+                            <div>
+                                <strong>${item.name}</strong><br>
+                                <small>Size: ${item.size}</small>
+                            </div>
+                            <div>
+                                <span>₹${item.price}</span>
+                                <button onclick="removeFromCart(${item.id})" style="margin-left: 10px; background: #ff4444; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                cartTotal.textContent = `Total: ₹${total}`;
+            }
+            
+            document.getElementById('cartModal').style.display = 'block';
+        }
+
+        // Remove from cart
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            cartCount--;
+            updateCartCount();
+            openCart(); // Refresh cart display
+            showNotification('Item removed from cart', 'success');
+        }
+
+        // Close cart modal
+        function closeCart() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        // Close buy now modal
+        function closeBuyNow() {
+            document.getElementById('buyNowModal').style.display = 'none';
+        }
+
+        // Checkout function
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!', 'error');
+                return;
+            }
+            
+            showNotification('Order placed successfully! Thank you for shopping with Urban Vogue.', 'success');
+            cart = [];
+            cartCount = 0;
+            updateCartCount();
+            closeCart();
+        }
+
+        // Confirm order
+        function confirmOrder() {
+            showNotification('Order confirmed! You will receive a confirmation email shortly.', 'success');
+            closeBuyNow();
+        }
+
+        // Show notification
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.background = type === 'success' ? '#4CAF50' : '#ff4444';
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const cartModal = document.getElementById('cartModal');
+            const buyNowModal = document.getElementById('buyNowModal');
+            if (event.target === cartModal) {
+                closeCart();
+            }
+            if (event.target === buyNowModal) {
+                closeBuyNow();
+            }
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
